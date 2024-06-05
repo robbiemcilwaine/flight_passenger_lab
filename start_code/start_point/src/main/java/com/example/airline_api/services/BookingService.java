@@ -26,6 +26,7 @@ public class BookingService {
 
         Booking booking = new Booking(flight, passenger, bookingDTO.getSeatNumber());
         flight.setCapacity(flight.getCapacity()-1);
+        bookingRepository.save(booking);
     }
 
 }

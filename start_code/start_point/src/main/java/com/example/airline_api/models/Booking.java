@@ -3,6 +3,8 @@ package com.example.airline_api.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+@Entity
+@Table(name = "bookings")
 public class Booking {
 
     @Id

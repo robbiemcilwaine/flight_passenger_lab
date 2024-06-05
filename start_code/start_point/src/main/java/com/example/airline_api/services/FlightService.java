@@ -14,9 +14,6 @@ public class FlightService {
     @Autowired
     FlightRepository flightRepository;
 
-    @Autowired
-    BookingService bookingService;
-
     public void saveFlight(Flight flight){
         flightRepository.save(flight);
     }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookingService {
@@ -30,15 +31,27 @@ public class BookingService {
         bookingRepository.save(booking);
     }
 
-    public Booking bookPassenger(Booking booking, Long id){
-        Passenger passenger = passengerService.getSinglePassenger(booking.getPassenger().getId()).get();
-        passengerService.addPassenger(passenger);
-        Flight flight = flightService.getSingleFlight(booking.getFlight().getId()).get();
-        flightService.saveFlight(flight);
+    public Booking book(Booking booking){
+//        create passenger and flight objects to instantiate booking with
+//        Passenger passenger = passengerService.getSinglePassenger(booking.getPassenger().getId()).get();
+//        passengerService.addPassenger(passenger);
+//        Flight flight = flightService.getSingleFlight(booking.getFlight().getId()).get();
+//        flightService.saveFlight(flight);
+        Flight flight;
+        Passenger passenger;
+        Booking newBooking;
 
-        Booking newBooking = new Booking(flight, passenger, booking.getSeatNumber());
-        flight.setCapacity(flight.getCapacity()-1);
-        bookingRepository.save(newBooking);
+        Optional<Flight> optionalFlight = flightService.getSingleFlight(booking.getFlight().getId());
+        Optional<Passenger> optionalPassenger = passengerService.getSinglePassenger(booking.getPassenger().getId());
+
+        if (optionalFlight.isPresent() && optionalPassenger.isPresent()){
+            flight = optionalFlight.get();
+            passenger = optionalPassenger.get();
+
+            newBooking = new Booking(flight, passenger, booking.getSeatNumber());
+            optionalFlight.get().setCapacity(flight.getCapacity()-1);
+            bookingRepository.save(newBooking);
+        }
         return newBooking;
     }
 

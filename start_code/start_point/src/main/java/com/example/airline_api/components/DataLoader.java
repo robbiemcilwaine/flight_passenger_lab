@@ -38,18 +38,12 @@ public class DataLoader implements ApplicationRunner {
 
         Passenger robbie = new Passenger("Robbie", "robbiemcilwaine99@gmail.com");
         passengerService.addPassenger(robbie);
+        Passenger yavin = new Passenger("Yavin", "ysongra@gmail.com");
         Booking booking1 = new Booking(dortmund, robbie, 1);
+        Booking booking2 = new Booking(losAngeles, yavin, 1);
+        passengerService.addPassenger(robbie);
+        passengerService.addPassenger(yavin);
         bookingRepository.save(booking1);
-
-        Passenger dan = new Passenger("Danash", "danashmahmood@yahoo.com");
-        passengerService.addPassenger(dan);
-        Booking booking2 = new Booking(dortmund, dan, 2);
         bookingRepository.save(booking2);
-
-
-        Passenger charisma = new Passenger("Charisma", "charismak@hotmail.com");
-        passengerService.addPassenger(charisma);
-        Booking booking3 = new Booking(dortmund, charisma, 3);
-        bookingRepository.save(booking3);
     }
 }

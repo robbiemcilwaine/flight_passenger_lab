@@ -32,7 +32,9 @@ public class DataLoader implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception{
         Flight dortmund = new Flight("Dortmund", 136, "03/06/2024", "13:00");
+        Flight losAngeles = new Flight("LAX", 150, "2024-06-15T10", "00:00");
         flightService.saveFlight(dortmund);
+        flightService.saveFlight(losAngeles);
 
         Passenger robbie = new Passenger("Robbie", "robbiemcilwaine99@gmail.com");
         passengerService.addPassenger(robbie);

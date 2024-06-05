@@ -25,8 +25,8 @@ public class BookingController {
 
     // TODO: Add details of a new booking
     @PostMapping(value = "/{id}")
-    public ResponseEntity<Booking> addNewBooking(@RequestBody BookingDTO bookingDTO, @PathVariable Long id){
-        Booking savedBooking = bookingService.bookPassenger(bookingDTO, id);
+    public ResponseEntity<Booking> addNewBooking(@RequestBody Booking booking, @PathVariable Long id){
+        Booking savedBooking = bookingService.bookPassenger(booking, id);
         return new ResponseEntity<>(savedBooking, HttpStatus.CREATED);
     }
 

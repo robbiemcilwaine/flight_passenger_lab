@@ -30,16 +30,16 @@ public class BookingService {
         bookingRepository.save(booking);
     }
 
-    public Booking bookPassenger(BookingDTO bookingDTO, Long id){
-        Passenger passenger = passengerService.getSinglePassenger(bookingDTO.getPassenger().getId()).get();
+    public Booking bookPassenger(Booking booking, Long id){
+        Passenger passenger = passengerService.getSinglePassenger(booking.getPassenger().getId()).get();
         passengerService.addPassenger(passenger);
-        Flight flight = flightService.getSingleFlight(bookingDTO.getFlight().getId()).get();
+        Flight flight = flightService.getSingleFlight(booking.getFlight().getId()).get();
         flightService.saveFlight(flight);
 
-        Booking booking = new Booking(flight, passenger, bookingDTO.getSeatNumber());
+        Booking newBooking = new Booking(flight, passenger, booking.getSeatNumber());
         flight.setCapacity(flight.getCapacity()-1);
-        bookingRepository.save(booking);
-        return booking;
+        bookingRepository.save(newBooking);
+        return newBooking;
     }
 
 }

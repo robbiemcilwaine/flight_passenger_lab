@@ -22,8 +22,13 @@ public class PassengerService {
         return passengerRepository.findAll();
     }
 
-    public Optional<Passenger> getSinglePassenger(long id){
-        return passengerRepository.findById(id);
+//    public Optional<Passenger> getSinglePassenger(long id){
+//        return passengerRepository.findById(id);
+//    }
+
+//    instead of returning Optional, can call .get() on the passenger from repository
+    public Passenger getSinglePassenger(long id){
+        return passengerRepository.findById(id).get();
     }
 
 }

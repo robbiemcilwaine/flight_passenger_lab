@@ -5,6 +5,8 @@ import com.example.airline_api.models.BookingDTO;
 import com.example.airline_api.models.Flight;
 import com.example.airline_api.models.Passenger;
 import com.example.airline_api.repositories.BookingRepository;
+import com.example.airline_api.repositories.FlightRepository;
+import com.example.airline_api.repositories.PassengerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,41 +20,30 @@ public class BookingService {
     BookingRepository bookingRepository;
 
     @Autowired
-    FlightService flightService;
+    FlightRepository flightRepository;
 
     @Autowired
-    PassengerService passengerService;
+    PassengerRepository passengerRepository;
 
     public List<Booking> getAllBookings(){
         return bookingRepository.findAll();
+    }
+
+    public Optional<Booking> getBookingById(long id){
+        return bookingRepository.findById(id);
     }
 
     public void saveBooking(Booking booking){
         bookingRepository.save(booking);
     }
 
-    public Booking book(Booking booking){
+    public Booking book(BookingDTO bookingDTO){
 //        create passenger and flight objects to instantiate booking with
-//        Passenger passenger = passengerService.getSinglePassenger(booking.getPassenger().getId()).get();
-//        passengerService.addPassenger(passenger);
-//        Flight flight = flightService.getSingleFlight(booking.getFlight().getId()).get();
-//        flightService.saveFlight(flight);
-        Flight flight;
-        Passenger passenger;
-        Booking newBooking;
 
-        Optional<Flight> optionalFlight = flightService.getSingleFlight(booking.getFlight().getId());
-        Optional<Passenger> optionalPassenger = passengerService.getSinglePassenger(booking.getPassenger().getId());
+        Flight flight = flightRepository.findById(bookingDTO.getFlightId()).get();
+        Passenger passenger = passengerRepository.findById(bookingDTO.getPassengerId()).get();
 
-        if (optionalFlight.isPresent() && optionalPassenger.isPresent()){
-            flight = optionalFlight.get();
-            passenger = optionalPassenger.get();
-
-            newBooking = new Booking(flight, passenger, booking.getSeatNumber());
-            optionalFlight.get().setCapacity(flight.getCapacity()-1);
-            bookingRepository.save(newBooking);
-        }
-        return newBooking;
+        Booking booking = new Booking(flight, passenger, bookingDTO.getSeatNumber());
+        return bookingRepository.save(booking);
     }
-
 }

@@ -1,18 +1,19 @@
 package com.example.airline_api.models;
 
+//  used when model's constructor requires excessive user input
 public class BookingDTO {
 
-    private Flight flight;
-    private Passenger passenger;
+    private long flightId;
+    private long passengerId;
     private int seatNumber;
     private String mealPreference;
 
-    public BookingDTO(Flight flight,
-                      Passenger passenger,
+    public BookingDTO(long flightId,
+                      long passengerId,
                       int seatNumber,
                       String mealPreference) {
-        this.flight = flight;
-        this.passenger = passenger;
+        this.flightId = flightId;
+        this.passengerId = passengerId;
         this.seatNumber = seatNumber;
         this.mealPreference = mealPreference;
     }
@@ -20,20 +21,20 @@ public class BookingDTO {
     public BookingDTO() {
     }
 
-    public Flight getFlight() {
-        return flight;
+    public long getFlightId() {
+        return flightId;
     }
 
-    public void setFlight(Flight flight) {
-        this.flight = flight;
+    public void setFlightId(long flightId) {
+        this.flightId = flightId;
     }
 
-    public Passenger getPassenger() {
-        return passenger;
+    public long getPassengerId() {
+        return passengerId;
     }
 
-    public void setPassenger(Passenger passenger) {
-        this.passenger = passenger;
+    public void setPassengerId(long passengerId) {
+        this.passengerId = passengerId;
     }
 
     public int getSeatNumber() {

@@ -27,24 +27,19 @@ public class FlightService {
         return flightRepository.findAll();
     }
 
-    public Optional<Flight> getSingleFlight(long id) {
-        return flightRepository.findById(id);
+    public Flight getSingleFlight(long id) {
+        return flightRepository.findById(id).get();
     }
 
     public void deleteFlight(long flightId) {
-        Optional<Flight> optionalFlight = getSingleFlight(flightId);
-        if (optionalFlight.isPresent()) {
-            Flight flight = optionalFlight.get();
-
+        Flight flight = getSingleFlight(flightId);
 //        must delete associated bookings with the flight
 //            bookings cannot exist for flights that no longer exist
-            for (Booking booking : flight.getBookings()) {
-                bookingRepository.delete(booking);
-            }
-
-            // Delete the flight
-            flightRepository.delete(flight);
+        for (Booking booking : flight.getBookings()) {
+            bookingRepository.delete(booking);
+        }
+        // Delete the flight
+        flightRepository.delete(flight);
         }
 
     }
-}

@@ -17,7 +17,7 @@ public class Booking {
     private Flight flight;
 
     @ManyToOne
-    @JoinColumn(name = "passenger_id")
+    @JoinColumn(name = "passenger_id") // name = foreign key that is coming from the 'many'
     @JsonIgnoreProperties({"bookings"})
     private Passenger passenger;
 

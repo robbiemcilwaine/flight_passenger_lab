@@ -31,18 +31,27 @@ public class DataLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception{
-        Flight dortmund = new Flight("Dortmund", 136, "03/06/2024", "13:00");
+        Flight newYork = new Flight("JFK", 136, "2024-06-12G22", "13:00");
         Flight losAngeles = new Flight("LAX", 150, "2024-06-15T10", "00:00");
-        flightService.saveFlight(dortmund);
+        flightService.saveFlight(newYork);
         flightService.saveFlight(losAngeles);
 
         Passenger robbie = new Passenger("Robbie", "robbiemcilwaine99@gmail.com");
         passengerService.addPassenger(robbie);
+
         Passenger yavin = new Passenger("Yavin", "ysongra@gmail.com");
-        Booking booking1 = new Booking(dortmund, robbie, 1);
-        Booking booking2 = new Booking(losAngeles, yavin, 1);
-        passengerService.addPassenger(robbie);
         passengerService.addPassenger(yavin);
+
+        Passenger fergus = new Passenger("Fergus", "fergusmc99@gmail.com");
+        passengerService.addPassenger(fergus);
+
+//        seed db with flight and passenger for adding booking
+        Flight belfast = new Flight("BHD", 112, "2024-06-16TH20", "12:40");
+        flightService.saveFlight(belfast);
+
+//        don't create booking for objects with id of 3
+        Booking booking1 = new Booking(newYork, robbie, 1);
+        Booking booking2 = new Booking(losAngeles, yavin, 1);
         bookingRepository.save(booking1);
         bookingRepository.save(booking2);
     }

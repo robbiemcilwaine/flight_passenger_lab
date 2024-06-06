@@ -15,14 +15,14 @@ public class Passenger {
     @Column
     private long id;
 
-    @Column(name = "name")
+    @Column(name = "name") // single worded attributes don't need name declaration
     private String name;
 
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "passenger")
-    @JsonIgnoreProperties({"passengers"})
+    @OneToMany(mappedBy = "passenger") // in the 'many', what part in common for mappedBy
+    @JsonIgnoreProperties({"passenger"})
     private List<Booking> bookings;
 
     public Passenger(String name, String email) {

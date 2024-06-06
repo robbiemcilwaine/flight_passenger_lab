@@ -28,7 +28,7 @@ public class Flight {
     private String departureTime;
 
     @OneToMany(mappedBy = "flight")
-    @JsonIgnoreProperties({"flights"})
+    @JsonIgnoreProperties({"flight"}) // ignore flight (singular) attribute, not flights table
     private List<Booking> bookings;
 
     public Flight(String destination, int capacity, String departureDate, String departureTime) {

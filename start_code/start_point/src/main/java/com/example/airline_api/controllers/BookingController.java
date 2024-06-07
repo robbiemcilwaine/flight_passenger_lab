@@ -5,6 +5,7 @@ import com.example.airline_api.models.BookingDTO;
 import com.example.airline_api.models.Flight;
 import com.example.airline_api.models.Passenger;
 import com.example.airline_api.services.BookingService;
+import com.example.airline_api.services.FlightService;
 import com.example.airline_api.services.PassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,9 @@ public class BookingController {
     @Autowired
     PassengerService passengerService;
 
+    @Autowired
+    FlightService flightService;
+
     // TODO: Display all bookings
     @GetMapping
     public ResponseEntity<List<Booking>> getAllBookings(){
@@ -41,6 +45,7 @@ public class BookingController {
     // TODO: Add details of a new booking
     @PostMapping
     public ResponseEntity<Booking> addNewBooking(@RequestBody BookingDTO bookingDTO){
+//        prevent passenger being booked if flight is full
         Booking booking = bookingService.book(bookingDTO);
         return new ResponseEntity<>(booking, HttpStatus.CREATED);
     }

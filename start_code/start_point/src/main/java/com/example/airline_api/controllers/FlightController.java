@@ -27,6 +27,8 @@ public class FlightController {
         return new ResponseEntity<>(flightService.getAllFlights(), HttpStatus.OK);
     }
 
+//    display flights by destination
+
     // TODO: Display a specific flight
     @GetMapping(value = "/{id}")
     public ResponseEntity<Flight> getFlightById(@PathVariable Long id){
@@ -43,9 +45,10 @@ public class FlightController {
 
     // TODO: Extension - Cancel flight
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity cancelFlight(@PathVariable Long id){
+    public ResponseEntity<Flight> cancelFlight(@PathVariable Long id) {
+        Flight flight = flightService.getSingleFlight(id);
         flightService.deleteFlight(id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        return new ResponseEntity<>(flight, HttpStatus.OK);
     }
 
 }
